@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="go.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <script>
+    var container = document.createElement("div"); //make a div
+    container.setAttribute("class", "container");
+
+    var rowdiv = document.createElement("div"); //make a div
+    rowdiv.setAttribute("class", "row");
+    
+
+
+    var images = ["1.JPG", "2.JPG", "3.JPG", "4.JPG", "5.JPG", "6.JPG"];
+        var titles = ["Berries Mousse Cake", "New York Cheesecake", "Rose Chocolate Tart", "Lemon Tart", "Matcha Cheese Tart", "Banana Chocolate Tart"];
+        var description = [
+            "Fancy blueberry flavor based mousse cake. Top with 72% dark chocolate ganash and fresh berries!",
+            "Classic New York cheesecake with chocolate spongecake base!",
+            "Butter crust filled with 72% dark chocolate ganash and light flavor of rose!",
+            "Crispy Earl grey flavored crust filled with mixed lemon and lime custard!",
+            "Butter crust filled with mascarpone cheese and Uji matcha powder!",
+            "Crispy crust filled with caramelized banana, 64% dark chocolate, and rum! "
+        ]
+    console.log(images);
+    var url; //assign later, make scope global to script
+    for (var i = 0; i < images.length; i++) //establish for, 6 items, last index place is 5, if you recall
+    {
+      console.log("image in iteration is " + images[i]);
+      url = "https://s3.us-east-2.amazonaws.com/newbucket3110spring2019bk/Project+4/" + images[i]; //append to https://s3-us-west-2.amazonaws.com/newbucket3110fall18/phase2/
+
+
+
+
+      urlOfDetailPage = "DetailPage.html?" + "img=" + url + "&title=" + titles[i] + "&detail=" + description[i] + "&imgid=" + i;
+      //  "detailPage-v4.html?" + "img=" + url; //where you will navigate, once you press the image, will send the detail page the img to analyze
+      //https://github.com/stefanbund/311/blob/16b1bb98a9f3c7a10663c2a4f87651bbf3508e17/prior%20terms/spring%202018%20materials/unit%202%20URL%20parameters/urlOrigin.html#L31   var imgDiv = document.createElement("div"); //divs to house img
+      var imgDiv = document.createElement("div"); //make a div
+      imgDiv.setAttribute("class", "col-sm"); //so it displays at 30% width, margin and padding https://css-tricks.com/almanac/properties/o/object-fit/
+
+      var imgInDiv = document.createElement("img");  //create img and title
+      imgInDiv.setAttribute("class", "img-fluid");
+      imgInDiv.setAttribute("id", "pctImg");
+
+      var card = document.createElement("div");
+            card.setAttribute("class","card");
+
+
+      var ti = document.createElement("a"); //create title link
+      ti.text = titles[i];
+      ti.setAttribute("href", urlOfDetailPage);
+      ti.setAttribute("class", "btn btn-outline-dark");
+
+
+
+      //create like, dislike
+      var like = document.createElement("button");
+      like.innerHTML = "like";
+      like.setAttribute("class", "btn btn-danger");
+      like.setAttribute("id", i);
+      var q = "myFunction(" + i + ")";
+      var check = "checkCookie(" + i + ")";
+      like.setAttribute("onclick", check);
+
+
+      var dislike = document.createElement("button");
+      dislike.innerHTML = "dislike";
+      dislike.setAttribute("class", "btn btn-secondary");
+      dislike.setAttribute("onclick", "removecookie(" + i + ")");
+
+      //create like img
+      var likeimg = document.createElement("img");
+      likeurl = "https://s3.us-east-2.amazonaws.com/newbucket3110spring2019bk/Project+4/like.png";
+      likeimg.setAttribute("src", likeurl);
+      likeimg.setAttribute("class", "likeimg");
+
+
+
+      imgInDiv.setAttribute("class", "rounded mx-auto d-block"); //fit to div
+      imgInDiv.setAttribute("src", url); //src to url, above, determined by for i
+
+      var link = document.createElement("a");
+      link.setAttribute("href", urlOfDetailPage); // set navigation to the url
+      link.appendChild(imgInDiv); //make the image the link
+      
+      
+      
+      
+      card.appendChild(ti); // place the title inside of each div
+      card.appendChild(link);//place the link inside of each div
+      card.appendChild(like);
+      card.appendChild(dislike);
+      // card.appendChild(likeimg);
+      imgDiv.appendChild(card);
+      
+      rowdiv.appendChild(imgDiv); 
+     
+      
+      checklike(i);
+
+
+
+
+    }
+    container.appendChild(rowdiv);
+      document.body.appendChild(container);//then appd to body, document.body.appendChild
+    // container.appendChild(rowdiv);
+    // document.body.appendChild(container);
+
+    document.body.style.backgroundColor = "#f3f3f3";
+    document.body.style.backgroundImage="url(7.jpg)";
+
+
+
+    //functions
+
+
+    function setCookie(cname, exdays) {
+      var d = new Date();
+      var cvalue = "value";
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toGMTString();
+      document.cookie = cname + "=" + cvalue + "; " + expires;
+      console.log("set");
+      document.getElementById(cname).disabled = true;
+      window.location.reload();
+      // imgDiv.appendChild(likeimg);
+
+    }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function checkCookie(imgid) {
+      console.log("13212313");
+
+      var user = getCookie(imgid);
+      if (user != "") {
+
+        alert("liked");
+
+      } else {
+
+        setCookie(imgid, 30);
+
+      }
+
+    }
+    function checklike(imgid) {
+
+      var user = getCookie(imgid);
+      if (user != "") {
+        // document.getElementById(imgid).disabled = true;
+        // imgDiv.appendChild(likeimg);
+        card.appendChild(likeimg);
+
+
+
+      } else {
+
+        console.log("wqe");
+
+      }
+    }
+
+    function removecookie(i) {
+      var removec = i;
+      setCookie(removec, -1);
+      window.location.reload();
+    }
+
+
+
+  </script>
+</body>
+
+</html>

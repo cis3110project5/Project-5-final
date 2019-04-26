@@ -1,53 +1,51 @@
-.pctImg{
-width: 100%;
-height: auto;
+#pctImg{
+    width: 300px; 
+    height: 200px;
+    } 
+/* .imgDiv{
+
+     background-color: rgb(204, 209, 208);
+     
+    font-size: auto;
+    border: 3px solid #fa4b06;
+    } */
+.like{
+    width: 30%;
+    height: 30px;
 }
-.imgDiv{
-  width:30%
-  height:300px;
-  padding:5px;
-}
-body {
-  margin: 10px;
-}
-.containMe {
-  display: grid;
-  grid-gap: 3px;
-  grid-template-columns: 33% 33% 33%; //better for responsivity
+.dislike{
+    width: 30%;
+    height: 30px;
 }
 
-.box {
-  background-color: #F1EBEA;
-  color: #7B241C;
-  border-radius: 3px; //adjust
-  padding: 20px;
-  font-size: 1.5vw; //adjust
-  font-family:sans-serif;
-  margin: 3px;
-  border: 3px;
-}
-button{
-  background-color: #dbb06b;
- border: solid;
- color: rgba(84, 32, 3, 0.63);
- padding: 1px 1px;
- text-align: center;
- text-decoration: none;
- display: inline-block;
- font-size: 1.5vw;
- margin: 4px 2px;
- cursor: pointer;
+/* .container{
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: 50% 50% 50%;
+} */
+/* second page */
+.imgDiv1{
+    height: auto;
+    width: 80%;
+    
+    font-size: 100px;
+    
+    border: 3px solid darkcyan
+  }
+
+  .likeimg{
+    width: 20%;
+    height: auto;
 }
 
-.button2{
-  background-color: #B4CDCD;
- border: solid;
- color: #668B8B;
- padding: 1px 1px;
- text-align: center;
- text-decoration: none;
- display: inline-block;
- font-size: 1.5vw;
- margin: 4px 2px;
- cursor: default;
+/* fontsize */
+
+#page1 {
+    font-size: 30px;
+}
+#title {
+    font-size: 30px;
+}
+#detail {
+    font-size: 30px;
 }

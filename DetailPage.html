@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>detailpage</title>
+    <link rel="stylesheet" href="go.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $(function () {
+            $("#u").click(function () {
+                //alert("testing this");
+                var h = "CIS3110_Project4.html";
+                console.log(h);
+                window.location.href = h;
+            });
+
+            var url = window.location.href;
+            console.log("url = " + url);
+            var x = breakurl(url); // launch breakurl
+            console.log(x.search);
+            console.log("this is search");
+            console.log(x.search);
+            console.log(x.search.img);
+            console.log(x.search.title);
+            console.log(x.search.detail);
+
+
+            var t = document.getElementById("effectDiv"); //   t is the back
+            var y = document.createElement("img");   //create img
+            var p1 = document.createElement("p");
+            var p2 = document.createElement("p");
+            var p3 = document.createElement("p");
+            var text = document.createTextNode("This is a paragraph.");
+            p1.setAttribute("id", "page1");
+            p2.setAttribute("id", "title");
+            p3.setAttribute("id", "detail");
+
+            var likeimg = document.createElement("img");
+            likeurl = "https://s3.us-east-2.amazonaws.com/newbucket3110spring2019bk/Project+4/like.png";
+            likeimg.setAttribute("src", likeurl);
+            likeimg.setAttribute("class", "likeimg");
+
+            //document.getElementById("page1").innerHTML = "Image url is: " + x.search.img;  //display url
+            // document.getElementById("title").innerHTML = "Title: This is " + x.search.title;  //display title
+            // document.getElementById("detail").innerText = "Car detail:  " + x.search.detail.replace(/%20/g, " ");  //display detail
+            var page1 = document.createTextNode("Image url is: " + x.search.img);
+            var title = document.createTextNode("Title: This is " + x.search.title);
+            var detail = document.createTextNode("Car detail:  " + x.search.detail.replace(/%20/g, " "));
+
+            //append details
+            p1.appendChild(page1);
+            p2.appendChild(title);
+            p3.appendChild(detail);
+
+
+            y.setAttribute("src", x.search.img);  // set img attri     source
+            y.setAttribute("class", "pctImg");  //set img attri  class
+
+            checklike(x.search.imgid);
+
+            t.appendChild(y);  // add img to back
+            t.appendChild(p1);
+            t.appendChild(p2);
+            t.appendChild(p3);
+
+
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1);
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            function checklike(imgid) {
+
+                var user = getCookie(imgid);
+                if (user != "") {
+                    // document.getElementById(imgid).disabled = true;
+                    t.appendChild(likeimg);
+                } else {
+                    console.log("wqe");
+                }
+            }
+
+            function breakurl(url) {
+                var link = document.createElement("a");
+                link.setAttribute("href", url);
+                console.log("path variable is " + url);
+
+                return {
+                    host: link.hostname,  //  'example.com'
+                    port: link.port,      //  12345
+                    search: mapMaker(link.search),  //  {startIndex: 1, pageSize: 10}
+                    path: link.pathname,  //  '/blog/foo/bar'
+                    protocol: link.protocol   //  'http:'
+                }
+            }
+
+            function mapMaker(search) {
+                var output = {};
+                var ret = [];
+                search = search.split("?")[1];
+                console.log("??????11" + search);
+                search = search.split("&");
+                console.log("&&&&11" + search);
+
+                ret = search.map(function (keyval) {
+                    keyval = keyval.split("=");
+                    output[keyval[0]] = keyval[1];
+                    console.log("10000000001=" + keyval[0]);
+                    console.log("11111111111=" + keyval[1]);                  
+                    console.log("out");
+                })
+                console.log("ret:");
+                console.log(ret);
+                return output;
+            }
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <div id="effectDiv" class="imgDiv1">
+        <button id="u">back</button>
+    </div>
+
+</body>
+
+</html>
